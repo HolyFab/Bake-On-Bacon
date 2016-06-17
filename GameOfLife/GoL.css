@@ -1,0 +1,60 @@
+#Main{
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    -webkit-user-select: none; 
+    margin: auto;
+}
+#GameWindow{
+	display: inline-block;
+	cursor: default; cursor: default;
+}
+#TBL_Game{
+	border-collapse: separate;
+	border:4px solid;
+}
+#TBL_Game td.cell{
+	border: solid white;
+	cursor: pointer; cursor: hand;
+}
+
+
+#TBL_Game tr:nth-child(odd) td.cell:nth-child(even){
+	background-color: #E6E6E6;
+}
+#TBL_Game tr:nth-child(odd) td.cell:nth-child(odd){
+	background-color: #D6D6D6;
+}
+#TBL_Game tr:nth-child(even) td.cell:nth-child(even){
+	background-color: #D6D6D6;
+}
+#TBL_Game tr:nth-child(even) td.cell:nth-child(odd){
+	background-color: #E6E6E6;
+}
+#TBL_Game td.cell.alive{
+	background-color: #00BEFF!important;
+}
+#TBL_Game.gameStoped td.cell:hover{
+	background-color: #33CBFF!important;
+}
+#TBL_Game.gameStoped td.cell:hover:active{
+	background-color: #00A1D9!important;
+}
+#GameControl > *{
+	margin: 10px;
+	width:75px;
+}
+#GameControl .controlbutton{
+	border: 1px solid;
+}
+#GameControl .numberpicker{
+	display: inline-block;
+	width: 150px;
+}
+#GameControl *:disabled{
+	-webkit-user-select: none; 
+	cursor: default; cursor: default;
+}

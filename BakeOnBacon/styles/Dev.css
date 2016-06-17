@@ -1,0 +1,19 @@
+@import "ProgressBars.css";
+
+
+#LD_BaconPancakes{
+	background-color: #CC6600;
+	animation: 0s expandWidth 0 linear;
+}
+#LD_Cats{
+	background-color: #FFBF00;
+	animation: 0s expandWidth 0 linear;
+}
+#LD_UpgBacon{
+	animation: 0s expandWidth 0 linear;
+}
+.dev{
+	width: 100%;
+	display: inline-block;
+	margin-bottom: 50px;
+}

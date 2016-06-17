@@ -1,0 +1,42 @@
+@keyframes expandWidth {
+   0% { width: 0%; }
+   99% { width: 100%; }
+   100% { width: 0%; }
+}
+.meter { 
+	height: 20px;  /* Can be anything */
+	width: 150px;
+	position: relative;
+	padding: 0px;
+	border: 2px solid;
+	text-align: center;
+	cursor: pointer; cursor: hand; 
+}
+.meter:hover { font-weight: bold; } 
+
+.meter .loader {
+	display: block;
+	height: 100%;
+	top:0px;
+	width: 0%;
+	background-color: darkgrey;
+	position: absolute;
+	
+	text-align: center;
+	z-index: -1;
+}
+
+/*#TT{
+	font-weight: normal;
+	font-style: italic;
+	text-align: left;
+	font-size: 14px;
+	z-index:10;
+	display: none;
+	top:25px;
+	left:50%;
+	position:absolute; 
+	color:#111;
+    border:1px solid #DCA; 
+    background:#fffAF0;
+}*/

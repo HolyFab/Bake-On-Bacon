@@ -1,0 +1,41 @@
+#DIV_FlipPan{
+	position: absolute;
+	font-family: 'Times-New-Roman',Times;
+	font-size: 14px;
+	text-align: center;
+	left:90px;
+	top:15px;
+	width: 135px;
+	height: 115px;
+	border: solid 2px;
+	background-color: #F3F3F3;
+}
+
+@keyframes flipPan {
+	0% { transform: rotate(5deg);  top: 80px;}
+	30%{ transform: rotate(-30deg); top: 20px;}
+	100%{ transform: rotate(5deg); top: 80px;}
+}
+#DIV_FlipPan .p_Pan{
+	position: absolute;
+	top:80px;
+	left: 20px;
+	width: 75px;
+	height: 25px;
+} 
+#DIV_FlipPan:hover .p_Pan{ animation: 0.5s flipPan infinite linear;}
+
+@keyframes flipBacon {
+	0% { transform: rotate(0deg); top: 84px; }
+	25% { transform: rotate(-90deg); top: 25px; }
+	50% { transform: rotate(-180deg); top: 0px; }
+	75% { transform: rotate(-270deg); top: 30px; }
+	100% { transform: rotate(-360deg); top: 84px; }
+}
+#DIV_FlipPan .p_Bacon{
+	position: absolute;
+	top:84px;
+	left: 63px;
+	color:black;
+} 
+#DIV_FlipPan:hover .p_Bacon{ animation: 0.5s flipBacon infinite linear ;}

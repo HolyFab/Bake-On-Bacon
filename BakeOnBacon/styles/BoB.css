@@ -1,0 +1,80 @@
+@import "Main.css";
+@import "BaconFlip.css";
+@import "FadingMenu.css";
+
+.visible{ visibility: visible; }
+.invisible{ visibility: hidden; }
+.CantSelect{ 
+	-webkit-user-select: none; 
+	cursor: default; cursor: default;
+}
+
+.CanClick{ cursor: pointer; cursor: hand; }
+#DIV_Page{
+	position: absolute;
+	top: 25px;
+	left: 50%;
+	width: 1200px;
+	height: 800px;
+	margin: 0 0 0 -600px;
+	/*border:solid;*/
+}
+#DIV_Side{
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	float:left;
+	font-size: 18px;
+	left:0px;
+	top: 0px;
+	height: 100%;
+	width: 250px;
+	padding: 0 30px 0 30px;
+}
+#DIV_Stats{
+	top: 150px;
+	left: 0px;
+	position: relative;
+	width:100%;
+	height:100%;
+}
+#DIV_Stats fieldset{
+	position: relative;
+	width: 100%;
+	padding: 0px;
+
+}
+.TBL_Stats{
+	width: 100%;
+}
+.TBL_Stats tr td:nth-child(even){
+	width: 25%;
+	text-align: right;
+}
+.TBL_Stats tr td:nth-child(odd){
+	width: 25%;
+	text-align: left;
+}
+
+div.salarybox{
+	width:100%;
+	height: 20px;
+}
+div.salaryframe{
+	width: 95%;
+	height: 8px;
+	border-bottom: solid 2px;
+	border-left: solid 2px;
+	border-right: solid 2px;
+	border-collapse: collapse;
+}
+div.salarytimer{
+	position: relative;
+	left: -2%;
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 10px solid black;
+}
+

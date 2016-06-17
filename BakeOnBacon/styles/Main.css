@@ -1,0 +1,78 @@
+@import "Dev.css";
+
+#DIV_Main{
+	position: relative;
+	display: inline-block;
+	float:left;
+	width:600px;
+	height: 100%;
+	top: 0px;
+	left:0px;
+	font-size: 18px;
+	padding: 0 20px 0 20px;
+}
+
+#DIV_MainTabs{
+	top:0px;
+	left: 0px;
+	width: 100%;
+	height: 16px;
+	padding: 10px 0 10px 0;
+}
+#DIV_Playground{
+	top:40px;
+	left:0px;
+	width:100%;
+	height: 100%;
+}
+
+.MainTab{
+	vertical-align: middle;
+	top:0px;
+	height: 100%;
+	width: 20%;
+	font-size: 14px;
+	display: inline-block;
+	text-align: center;
+	border: solid 1px transparent;
+	cursor: pointer; cursor: hand; 
+}
+.MainTab:hover{ border-color: black; }
+
+.MainTabSelected{ border-color: black; }
+.MainTabNotif{color:red;}
+
+
+.MK_Item{
+	display: inline-block;
+	width: 100%;
+	height: 30px;
+}
+.MK_Item > *{
+	display: inline-block;
+	margin-right: 5px;
+}
+
+
+.separatorwithtext{
+	width: 50%;
+	height: 8px;
+	border-bottom: 1px solid black;
+	text-align: center;
+}.separatorwithtext > span{
+	font-size: 16px; 
+	background-color:white;
+	padding: 0 10px;
+}
+
+.smallbutton{
+	height: 20px;
+	width: 20px;
+	border: 2px solid;
+	text-align: center;
+	position: relative;
+}.smallbutton:hover{font-weight: bolder;}
+
+.newfeature{
+	border-radius: 20px;
+}

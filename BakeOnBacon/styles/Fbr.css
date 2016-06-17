@@ -1,0 +1,27 @@
+@import "ProgressBars.css";
+
+#DIV_Fbr{
+	float: left;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+#TBL_Fbr{
+	position: relative;
+	top:25px;
+	width: 100%;
+}
+#TBL_Fbr .TD_Loader{
+	height: 15px;
+	width: 150px;
+}
+
+#LD_BaconPancakes{
+	background-color: #CC6600;
+	animation: 0s expandWidth 0 linear;
+}
+#LD_Cats{
+	background-color: #FFBF00;
+	animation: 0s expandWidth 0 linear;
+}
+
