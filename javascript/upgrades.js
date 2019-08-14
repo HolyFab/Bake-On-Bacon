@@ -1,14 +1,3 @@
-var bacons = { 
-	ammount: 0, 
-	cmp: 0,
-	byShot: 1,
-	id: 'Bacons',
-	title:'Bacon',
-	add: function(nb){this.ammount += nb; this.cmp += nb;},
-	shot: function(){this.add(this.byShot);},
-	remove: function(nb){this.ammount = (this.ammount-nb >= 0)? this.ammount-nb : 0;},
-	tick: function(){this.add(cats.ammount);}
-}
 var baconPancakes = {
 	unclocked: false,
 	ammount: 0,
@@ -227,92 +216,94 @@ var cats ={
 	salTooltip: function(){
 		return '<b>Levels: </b>' + order(this.levels) + '<br /><b>Salary:</b>' + order(this.salary);
 	}
-
-
 }
 
-var upgBacon = {
-	owned: [false,false],
-	getOwned: function(){return this.owned[this.nextUpg];},
-	priceBacons: [150,150],
-	getPriceBacons: function(){return this.priceBacons[this.nextUpg];},
-	pricePancakes: [7,7],
-	getPricePancakes: function(){return this.pricePancakes[this.nextUpg];},
-	baconMultiplier:[2,5],
-	getBaconMultiplier: function(){return this.baconMultiplier[this.nextUpg];},
-	id: 'UpgBacon',
-	colors:['FF0000','09DB10'],
-	getColor: function(){return this.colors[this.nextUpg];},
-	titles:['Turkey Bacon', 'Dinosaur Bacon'],
-	getTitle: function(){return this.titles[this.nextUpg];},
-	ttdescription:['Doubles bacons by flip','Flips 5 bacon at a time!!'],
-	getTTdescription: function(){return this.ttdescription[this.nextUpg];},
-	upging:false,
-	upgtime:[4,4],
-	getUpgtime: function(){return this.upgtime[this.nextUpg];},
-	upgIntervalId: 0,
-	nextUpg: 0,
-	upgrade: function(){
-		this.upging = false;
-		this.owned[this.nextUpg] = true;
-		notificationBox.print("You upgraded to " + this.getTitle() + " and can you more bacon: x" + this.getBaconMultiplier());
-		$('#LD_' + this.id).css({'animation-iteration-count': 0});
-		clearInterval(this.upgIntervalId);
-		this.upgIntervalId = 0;
-		this.effect(this.nextUpg);
-	},
-	startUpgrade: function(){
-		if(this.canUpg(this.nextUpg)){
-			this.pay(this.nextUpg);
-			this.upging = true;
-			if(!this.upgIntervalId){
-				$('#LD_' + this.id).css({'animation-iteration-count': "infinite"})
-				$('#LD_' + this.id).css({'animation-duration': this.getUpgtime() + "s" })
-				$('#LD_' + this.id).css({'animation-play-state': "running" })
-				this.upgIntervalId = setInterval(function(){upgBacon.upgrade()}, this.getUpgtime() * 1000);
-			}
+function GetBaconUpgrade(priceBacon, pricePancake, multiplier, color, title, tooltip, time){
+	return {priceBacon, pricePancake, multiplier, color, title, tooltip, time};
+}
+class Bacon{
+	constructor(){
+		this.types = {
+			Normal: GetBaconUpgrade(0, 0, 1, '000000', 'Bacon', 'Flips bacon', 0),
+			Turkey: GetBaconUpgrade(150, 7, 2, 'FF0000', 'Turkey Bacon', 'Doubles Bacons By Flip', 4),
+			Dinosaur: GetBaconUpgrade(150, 7, 4, '09DB10', 'Dinosaur Bacon', 'Flips 4 bacon at a time', 4)
+		};
+		this.upgradeList = [this.types.Normal, this.types.Turkey, this.types.Dinosaur];
+		this.ammount = 0;
+		this.cmp = 0;
+		this.id = 'Bacons',
+		this.title ='Bacon',
+		this.upgradeIntervalId = 0;
+		this.components = {
+			LD: `#LD_${'UpgBacon'}`,
+			MK: `#MK_${'UpgBacon'}`,
+			BTN_TXT: `#BTN_TXT_${'UpgBacon'}`,
+			BTN: `BTN_${'UpgBacon'}`,
+			aniBacon: '#aniBacon'
 		}
-	},
-	canUpg: function(){
-		if(this.upging){
+		this.upgrading = false;
+		this.currentUpgrade = this.upgradeList.shift();
+		this.nextUpgrade = this.upgradeList.shift();
+	}
+	add(nb){this.ammount += nb; this.cmp += nb;}
+	shot(){this.add(this.currentUpgrade.multiplier * 1);}
+	remove(nb){this.ammount = (this.ammount-nb >= 0)? this.ammount-nb : 0;}
+	tick(){this.add(cats.ammount);}
+	canUpgrade(){
+		if(this.upgrading)
+			return false;
+		var missings = [];
+		if(this.ammount < this.nextUpgrade.priceBacon)
+			missings.push(bacons.title)
+		if(baconPancakes.ammount < this.nextUpgrade.pricePancake)
+			missings.push(baconPancakes.title)
+		if(missings.length){
+			notificationBox.printNoResources(missings);
 			return false;
 		}
-		else{
-			var can = true;
-			var missings = [];
-			if(bacons.ammount < this.getPriceBacons()){
-				can = false;
-				missings.push(bacons.title)
-			}
-			if(baconPancakes.ammount < this.getPricePancakes()){
-				can = false;
-				missings.push(baconPancakes.title)
-			}
-			if(!can)
-				notificationBox.printNoResources(missings);
-			return can;
-		}
-	},
-	pay: function(){
-		bacons.remove(this.getPriceBacons());
-		baconPancakes.remove(this.getPricePancakes());
-	},
-	setLoader: function(){
-		$('#LD_UpgBacon').css({'background-color': '#' + this.getColor()});
-		$('#BTN_TXT_' + this.id).text(this.getTitle());
-	},
-	effect:function(){
-		bacons.byShot = upgBacon.getBaconMultiplier();
-		$("#aniBacon").css({color : "#" + this.getColor()});
-		if(this.nextUpg++ < this.owned.length)
-			this.setLoader();
+		return true;
+	}
+	pay(){
+		this.remove(this.nextUpgrade.priceBacon);
+		baconPancakes.remove(this.nextUpgrade.pricePancakes);
+	}
+	setLoader(){
+		$(this.components.LD).css({'background-color': `#${this.nextUpgrade.color}`});
+		$(this.components.BTN_TXT).text(this.nextUpgrade.title);
+	}
+	upgrade(){
+		this.upgrading = false;
+		$(this.components.LD).css({'animation-iteration-count': 0});
+		this.effect();
+	}
+	startUpgrade(){
+		debugger;
+		if(!this.canUpgrade())
+			return;
+		this.pay();
+		this.upgrading = true;
+		$(this.components.LD).css({'animation-iteration-count': "infinite"})
+		$(this.components.LD).css({'animation-duration': `${this.nextUpgrade.upgradingTime}s` })
+		$(this.components.LD).css({'animation-play-state': "running" })
+		setTimeout(function(){this.upgrade.bind(this)}, this.nextUpgrade.upgradingTime * 1000);
+	}
+	effect(){
+		this.currentUpgrade = this.nextUpgrade;
+		this.nextUpgrade = this.upgradeList.shift();
+		notificationBox.print(`You upgraded to ${this.currentUpgrade.title} and can do more bacon: x${this.currentUpgrade.multiplier}`);
+		$("#aniBacon").css({color : `#${this.currentUpgrade.color}`});
+		//Do something
+		if(this.nextUpgrade=== undefined)
+			$(this.components.MK).remove();
 		else
-			$('#MK_' + this.id).remove();
-	},
-	tooltip: function(){
-		return '<b>' + this.getTTdescription() + ' </b><br />Bacons: ' + this.getPriceBacons()  + '<br />Pancakes: '  + this.getPricePancakes();
+			this.setLoader();
+	}
+	tooltip(){
+		return `<b>${this.nextUpgrade.tooltip} </b><br />Bacons: ${this.nextUpgrade.priceBacon}<br />Pancakes: ${this.nextUpgrade.pricePancake}`;
 	}
 }
+var bacon = new Bacon();
+
 function order(arr){
 	var str = '';
 	for(i= 0; i < arr.length ; i++)

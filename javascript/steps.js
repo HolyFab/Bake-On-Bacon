@@ -9,7 +9,7 @@ function stepStart(){
 		var divBaconFlip = $('<div>').attr('id', 'DIV_FlipPan')
 		divBaconFlip.append($('<span>').addClass('p_Pan').text('-----\\____/').attr('id','aniPan'))
 		divBaconFlip.append($('<span>').addClass('p_Bacon').text('~~').attr('id','aniBacon'));
-		divBaconFlip.mouseover(function(){hoverEvent = function(){bacons.shot();};
+		divBaconFlip.mouseover(function(){hoverEvent = function(){bacon.shot();};
 		}).mouseout(function(){hoverEvent = function(){};});
 		$('#DIV_Side').append(divBaconFlip);
 		return true;
@@ -17,13 +17,13 @@ function stepStart(){
 	return false;
 }
 function stepBacons(){
-	if(!this.unlocked && bacons.ammount >= 15){
+	if(!this.unlocked && bacon.ammount >= 15){
 		this.unlocked = true;
 		var fieldset = $('<fieldset>').append($('<legend>').text('Stock'));
-		var divStats = $('<div>').attr('id','DIV_Stats').append(fieldset.append($('<table>').addClass('TBL_Stats').attr('id','TBL_Stock').append(createStatsRow("Bacons: ", bacons.id, false))));
+		var divStats = $('<div>').attr('id','DIV_Stats').append(fieldset.append($('<table>').addClass('TBL_Stats').attr('id','TBL_Stock').append(createStatsRow("Bacons: ", bacon.id, false))));
 		$('#DIV_Side').append(divStats);
 		screenUpdates.push(function(){
-			$('#TXT_' + bacons.id).html(bacons.ammount);
+			$('#TXT_' + bacon.id).html(bacon.ammount);
 		});
 		
 		return true;
@@ -32,7 +32,7 @@ function stepBacons(){
 }
 
 function stepFbrPancakes(){
-	if(!this.unlocked && bacons.ammount >= 50){
+	if(!this.unlocked && bacon.ammount >= 50){
 		this.unlocked = true;
 		var div = $('<div>').addClass("MK_Item").attr('id','MK_' + baconPancakes.id);
 		div.append(createLoader(baconPancakes.title ,baconPancakes.id,function(){return baconPancakes.tooltip()}));
@@ -65,23 +65,24 @@ function stepPancakes(){
 function stepTurkeyBacon(){
 	if(!this.unlocked && baconPancakes.ammount >= 3){
 		this.unlocked = true;
-		var div = $('<div>').addClass("MK_Item").attr('id','MK_' + upgBacon.id);
-		div.append(createLoader(upgBacon.getTitle(),upgBacon.id, function(){return upgBacon.tooltip();}));
+		var div = $('<div>').addClass("MK_Item").attr('id',	bacon.components.MK);
+		div.append(createLoader(bacon.nextUpgrade.title,'UpgBacon', function(){return bacon.tooltip();}));
 		$('#DEV_Upg').show().append(createSeparatorWithText('Upgrade')).append(div);
-		upgBacon.setLoader();
+		bacon.setLoader();
 		$("#TAB_Dev").removeClass("invisible");
-		$('#LD_' + upgBacon.id).on("animationend", function(){
-			$('#LD_' + upgBacon.id).css({'animation-play-state': "paused" });
+		$(bacon.components.LD).on("animationend", function(){
+			$(	bacon.components.LD).css({'animation-play-state': "paused" });
 		});
 		newItem("Dev");
-		$('#BTN_' + upgBacon.id).click(function(){
-			upgBacon.startUpgrade();
+		debugger;
+		$(bacon.components.BTN).click(function(){
+			bacon.startUpgrade();
 		});
 	}
 }
 
 function stepCats(){
-	if(!this.unlocked && upgBacon.owned[0]){
+	if(!this.unlocked && bacon.currentUpgrade == bacon.types.Turkey){
 		this.unlocked = true;
 		var div = $('<div>').addClass("MK_Item").attr('id','MK_' + cats.id);
 		div.append(createLoader(cats.title,cats.id,function(){return cats.tooltip();}));

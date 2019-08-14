@@ -55,19 +55,18 @@ function screenUpdate(){
 setInterval(screenUpdate, 100);
 
 /*setInterval(function(){
-	bacons.tick();
+	bacon.tick();
 },1000);*/
 
 setInterval(function(){
 	hoverEvent();
 },500);
 function cheat(){
-	bacons.add(250);
+	bacon.add(250);
 	baconPancakes.add(baconPancakes.max.m);
 	checkSteps();
-	if(!upgBacon.owned[0])
-		upgBacon.upgrade();
 	cats.add(1);
+	cats.cmpSal++;
 	$("legend").click(function(){cats.timer = 299;});
 	makeAppear('#DIV_Page',function(){notificationBox.print('<h1>You little cheater ;)</h1>');});
 }
