@@ -135,17 +135,17 @@ var cats ={
 		}
 	},
 	startFabricate: function(){
-		if(this.canFbr()){
-			this.pay();
-			this.fbring += 1;
-			if(!this.fbrIntervalId){
-				$('#LD_' + this.id).css({'animation-iteration-count': "infinite"})
-				$('#LD_' + this.id).css({'animation-duration': this.fbrTime + "s" })
-				$('#LD_' + this.id).css({'animation-play-state': "running" })
-				this.fbrIntervalId = setInterval(function(){
-					cats.fabricate();
-				}, this.fbrTime * 1000);
-			}
+		if(!this.canFbr())
+			return;
+		this.pay();
+		this.fbring += 1;
+		if(!this.fbrIntervalId){
+			$('#LD_' + this.id).css({'animation-iteration-count': "infinite"})
+			$('#LD_' + this.id).css({'animation-duration': this.fbrTime + "s" })
+			$('#LD_' + this.id).css({'animation-play-state': "running" })
+			this.fbrIntervalId = setInterval(function(){
+				cats.fabricate();
+			}, this.fbrTime * 1000);
 		}
 	},
 	canFbr: function(){
@@ -277,7 +277,6 @@ class Bacon{
 		this.effect();
 	}
 	startUpgrade(){
-		debugger;
 		if(!this.canUpgrade())
 			return;
 		this.pay();
