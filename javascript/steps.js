@@ -131,8 +131,8 @@ stepList = [
         if (!this.unlocked && baconPancakes.max.m > 17) {
             this.unlocked = true;
             $('#MK_' + baconPancakes.id).append(createNewFeatureBTN(
-                function () { return baconPancakes.max.unlock() },
-                function () { return baconPancakes.max.tooltipUnlock() }
+                function () { return baconPancakes.stack.unlock() },
+                function () { return baconPancakes.stack.tooltipUnlock() }
             ).css('opacity', '0').animate({ opacity: '1' }, 500, 'linear'));
             return true;
         }

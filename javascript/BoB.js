@@ -58,7 +58,7 @@ function cheat() {
     bacon.add(250);
     baconPancakes.add(baconPancakes.max.m);
     checkSteps();
-    cats.add(1);
+    //cats.add(1);
     cats.cmpSal++;
     $("legend").click(function () { cats.timer = 299; });
     makeAppear('#DIV_Page', function () { notificationBox.print('<h1>You little cheater ;)</h1>'); });

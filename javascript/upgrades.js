@@ -26,9 +26,11 @@ var baconPancakes = {
     cmp: 0,
     stack: {
         m: 1,
+        unlockCost: new CostObj(1000, 12),
+        unlocked: false,
         unlock: function () {
-            if (true)
-                return true;
+            if (this.unlocked || !this.unlockCost.canBuy)
+                return false
         }
     },
     max: {
