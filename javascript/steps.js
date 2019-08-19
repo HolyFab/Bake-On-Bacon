@@ -162,7 +162,7 @@ function createTooltip(element, fcontent, style) {
 }
 function createLoader(content, id, ftooltipContent) {
     var loader = $('<span>').addClass('loader').attr('id', 'LD_' + id);
-    var meter = $('<div>').addClass('meter').attr('id', 'BTN_' + id).append($('<span>').attr('id', 'BTN_TXT_' + id).text(content)).append(loader);
+    var meter = $('<div>').addClass('meter').attr('id', 'BTN_' + id).append($('<span>').addClass('stacks').attr('id', `STK_${id}`).text(0)).append($('<span>').attr('id', 'BTN_TXT_' + id).text(content)).append(loader);
     return createTooltip(meter, ftooltipContent);
 }
 function createStatsRow(content, id, max, ftooltipContent) {

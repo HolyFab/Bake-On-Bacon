@@ -12,6 +12,10 @@
 #LD_UpgBacon{
 	animation: 0s expandWidth 0 linear;
 }
+.stacks{
+	position: absolute;
+	text-align: left;
+}
 .dev{
 	width: 100%;
 	display: inline-block;

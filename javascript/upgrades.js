@@ -25,13 +25,38 @@ var baconPancakes = {
     ammount: 0,
     cmp: 0,
     stack: {
-        m: 1,
+        m: 0,
+        current: 0,
+        cost: new CostObj(1000, 15),
         unlockCost: new CostObj(1000, 12),
+        costMultiplier: 2,
         unlocked: false,
         unlock: function () {
-            if (this.unlocked || !this.unlockCost.canBuy)
-                return false
+            if (this.unlocked || !this.unlockCost.canBuy())
+                return false;
+            this.unlockCost.buy();
+            unlocked = true;
+            $('#MK_' + baconPancakes.id).append(createUpgradeMaximumBTN(
+                function () { return baconPancakes.stack.upgrade() },
+                function () { return baconPancakes.stack.tooltip() }
+            ));
+            notificationBox.print('You can now buy pancakes stack ' + baconPancakes.title);
+            return true;
+        },
+        tooltipUnlock: function () { return `${baconPancakes.title}: ${this.unlockCost.pancakes} <br /> ${bacon.title}: ${this.unlockCost.bacons}`; },
+        tooltip: function () {
+            return `<b>Stack ${baconPancakes.title} </b><br />
+                ${bacon.title}: ${this.unlockCost.bacons}<br />
+                ${baconPancakes.title}: ${this.unlockCost.pancakes}`;
+        },
+        upgrade: function(){
+            if(!this.unlockCost.canBuy(true))
+                return false;
+            this.unlockCost.pay();
+            this.m++;
+            return true;
         }
+
     },
     max: {
         m: 10,
@@ -71,7 +96,7 @@ var baconPancakes = {
 
     },
     priceBacons: 50,
-    fbrMult: 1,
+    fbrMult: 3,
     fbrTime: 5,
     fbring: 0,
     fbrIntervalId: 0,
